@@ -14,7 +14,7 @@ class UpdateLineManagers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('line_manager')->nullable()->change();
+
             $table->string('position')->nullable()->change();
         });
     }
