@@ -11,6 +11,8 @@ use App\Http\Livewire\UpdateItemsRequest;
 use App\Http\Livewire\SuppliesWire;
 use App\Http\Livewire\ItemsUpdate;
 use App\Http\Livewire\SuppliesUpdate;
+use App\Http\Livewire\AllUsers;
+use App\Http\Livewire\AllUsersDetails;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,7 +31,8 @@ Route::get('/', function () {
 });
 Route::get('/vendors', Vendors::class)->name('apply');
 Route::group(['middleware'=>'auth:sanctum'],function(){
-
+Route::get('/users', AllUsers::class)->name('all_users');
+Route::get('users/{id}', AllUsersDetails::class)->name('user_update');
 Route::get('/board', Welcome::class);
 Route::get('/admin/vendor', ShowVendor::class)->name('all_vendor');
 Route::get('/admin/make_request', MakeItemsRequest::class)->name('make_request');
