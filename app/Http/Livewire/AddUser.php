@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Department;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\StaffMail;
 use Alert;
 class AddUser extends Component
 {
@@ -39,6 +41,7 @@ class AddUser extends Component
         $result->line_manager = $this->line_manager;
 
         $result->save();
+        Mail::to($result->email)->send(new StaffMail($result));
         $this->clearForm();
         $this->dispatchBrowserEvent('swal:modal',[
             'type' => 'success',
