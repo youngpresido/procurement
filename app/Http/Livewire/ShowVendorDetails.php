@@ -49,6 +49,7 @@ class ShowVendorDetails extends Component
             $result->email = $this->data['email'];
 
             $result->position = "vendor";
+            $result->type = "vendor";
             $result->password = \Hash::make('password');
 
 
