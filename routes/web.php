@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/vendor', Vendors::class)->name('apply');
+Route::get('/vendors', Vendors::class)->name('apply');
 Route::group(['middleware'=>'auth:sanctum'],function(){
 
 Route::get('/board', Welcome::class);
