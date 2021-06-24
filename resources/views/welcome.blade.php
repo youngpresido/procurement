@@ -44,7 +44,7 @@
 
 
                     <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                        <a href="{{ url('/vendor') }}"> Click to apply to be a vendor </a>
+                        <a href="{{ route('apply') }}"> Click to apply to be a vendor </a>
                     </div>
                 </div>
             </div>
