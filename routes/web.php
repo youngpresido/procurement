@@ -3,6 +3,7 @@
 use App\Http\Livewire\AddUser;
 use App\Http\Livewire\MakeItemsRequest;
 use App\Http\Livewire\ShowVendor;
+use App\Http\Livewire\Welcome;
 use App\Http\Livewire\ShowVendorDetails;
 use App\Http\Livewire\Vendors;
 use App\Http\Livewire\Department;
@@ -26,9 +27,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/vendor', Vendors::class)->name('apply');
 Route::group(['middleware'=>'auth:sanctum'],function(){
-Route::get('/vendor', Vendors::class);
+
+Route::get('/board', Welcome::class);
 Route::get('/admin/vendor', ShowVendor::class)->name('all_vendor');
 Route::get('/admin/make_request', MakeItemsRequest::class)->name('make_request');
 Route::get('/admin/request', UpdateItemsRequest::class)->name('request');
