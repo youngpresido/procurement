@@ -2,7 +2,7 @@
     <div class="grid grid-cols-12 bg-white ">
         <div class="col-span-12 md:border-solid md:border-l md:border-black md:border-opacity-25 h-full pb-12 md:col-span-10">
           <div class="px-4 pt-4  content-center">
-            <form  method="POST" class="w-full" wire:submit.prevent="submitForm">
+            <form  method="POST" class="w-full" wire:submit.prevent="updateForm">
                 <fieldset>
                     <legend>Assign Items purchase</legend>
                 @csrf

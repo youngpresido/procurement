@@ -11,6 +11,7 @@
                   <th style="cursor: pointer;" wire:click="sort({{ $key }})" scope="col" class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase ">
                     {{ is_array($value)? $value['label']: $value }}
                      </th>
+
                   @endforeach
               </tr>
             </thead>
@@ -21,7 +22,7 @@
                 <tr>
                     @foreach($headers as $key => $value)
                     <td class="px-2 py-3 whitespace-nowrap text-sm text-gray-500">
-                        @if($key=='action')
+                        @if($key=='action' && (auth()->user()->type!="staff" || auth()->user()->type!="vendor" ))
                         <a href="{{ url('/admin/item/'.$item['id']) }}">view</a>
                         @else
                             {!! is_array($value)? $value['func']($item[$key]): $item[$key] !!}

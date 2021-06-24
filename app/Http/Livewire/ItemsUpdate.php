@@ -6,6 +6,7 @@ use App\Mail\UpdateRequest;
 use App\Models\Item;
 use Livewire\Component;
 use App\Models\User;
+use App\Models\Department;
 use Illuminate\Support\Facades\Mail;
 
 class ItemsUpdate extends Component

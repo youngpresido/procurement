@@ -17,7 +17,12 @@ class UpdateItemsRequest extends Component
 
     public function headerConfig(){
         return [
-        "id"=>"#",
+        "id"=>[
+            "label" => "id",
+            "func" =>function($value){
+                return $value;
+            }
+        ],
         "items"=>"Items",
          "user_id"=>[
           'label'=> "Requesting Staff",
@@ -27,12 +32,20 @@ class UpdateItemsRequest extends Component
           }
          ],
 
-         "status_level"=>"Status Level",
+         "status_level"=>[
+            "label"=> "Status Level",
+            'func' => function($value){
+                $nam=User::whereId($value)->first();
+                return "pending with $nam->name";
+            }
+
+            ],
          "status"=>'Status',
          "supply"=>"Supplies",
          'expected_date'=>"Expected Date of Supply",
          'delivery_date'=>"Delivery Date of Supply",
          "reason"=>'Reason  for reject',
+
          "vendor_id"=>[
              "label"=>"Vendor",
              "func"=>function($value){
@@ -58,6 +71,7 @@ class UpdateItemsRequest extends Component
          ]
 
         ];
+
     }
     public function hydrate(){
         $this->headers = $this->headerConfig();
@@ -71,10 +85,11 @@ class UpdateItemsRequest extends Component
     {
         $item =[];
 
-        Item::orderBy($this->sortColumn,$this->sortDirection)
+       $item= Item::orderBy($this->sortColumn,$this->sortDirection)
         ->where('user_id',auth()->user()->id)
         ->orWhere('status_level',auth()->user()->id)
         ->paginate(10);
+
         return $item;
     }
 
