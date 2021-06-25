@@ -28,7 +28,8 @@ class SuppliesWire extends Component
                  if($value==null){
                      return "no vendor assigned yet";
                  }else{
-                     $value->vendor->name;
+                    $nam=User::where("id",$value)->first();
+                    return "assigned to vendor  $nam->name";
                  }
              }
             ],

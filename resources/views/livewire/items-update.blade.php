@@ -34,6 +34,7 @@
                         <p class="text-red-500 mt-1">{{ $message }}</p>
                     @enderror
                     <select wire:model="vendor_id" class="w-full px-5 py-3 border border-gray-400 rounded-lg outline-none focus:shadow-outline" type="text" placeholder="vendor_id" name="vendor_id" value="{{ old('vendor_id') }}" />
+                    <option></option>
                     @foreach($users as $user)
                         @if($user->type=='vendor')
                         <option value="{{ $user->id }}">{{$user->name}}</option>

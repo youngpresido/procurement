@@ -76,6 +76,7 @@ class ItemsUpdate extends Component
             Mail::to($proc->email)->send(new UpdateRequest($proc));
         }
         if(auth()->user()->type== 'procurement'){
+            // dd($this->vendor_id);
             $this->data['vendor_id']= $this->vendor_id;
         }
     }else{
