@@ -8,6 +8,7 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Carbon\Carbon;
+use App\Models\Department;
 use Illuminate\Support\Facades\Mail;
 
 class SuppliesUpdate extends Component
@@ -17,9 +18,14 @@ class SuppliesUpdate extends Component
     public $status;
     public $ids;
     public $file;
+    public $vendor_id;
     public $quote_status;
     public $quote;
     public $successMsg="";
+    public $myStatus= [
+        "accepted"=> "accepted",
+        "rejected" => "rejected",
+    ];
 
     public function render()
     {
@@ -31,6 +37,7 @@ class SuppliesUpdate extends Component
         $this->ids=$id;
         $this->status = $this->data['status'];
         $this->quote = $this->data['quote'];
+        $this->vendor_id =$this->data['vendor_id'];
         $this->quote_status = $this->data['quote_status'];
     }
     public function uploadFile($file){
@@ -43,17 +50,30 @@ class SuppliesUpdate extends Component
 
     public function submitForm()
     {
-        $this->validate($this->rules);
+        // $this->validate($this->rules);
         $result =Item::whereId($this->ids)->first();
-        $result->quote =$this->uploadFile($this->file);
-        $result->delivery_date = Carbon::now();
-        $result->updated_by = auth()->user()->id;
-        $result->quote_status = $this->quote_status;
         $requester = User::find($this->data['user_id']);
         $line_man =User::find($requester->line_manager);
         $dept =Department::find($this->data['department_id']);
 
         $hod =User::find($dept->hod);
+        if(auth()->user()->type=='vendor'){
+            if($this->data['quote_status']== 'accepted'){
+                $result->delivery_date = Carbon::now();
+            }else{
+                $result->quote =$this->uploadFile($this->quote);
+
+            }
+
+        }else{
+            $result->delivery_date = Carbon::now();
+            $result->quote_status = $this->quote_status;
+        }
+
+
+
+        $result->updated_by = auth()->user()->id;
+
         if(auth()->user()->position == "procurement" && $this->status != "accepted"){
             Mail::to($hod->email)->send(new UpdateRequest($hod));
         }else{
@@ -81,9 +101,9 @@ class SuppliesUpdate extends Component
 
         $this->successMsg = 'Quotation uploaded successfully created.';
         $result->save();
-        $this->clearForm();
 
-        $this->currentStep = 1;
+
+
         $this->dispatchBrowserEvent('swal:modal',[
             'type' => 'success',
             'title'=> 'Status updated Successfully',

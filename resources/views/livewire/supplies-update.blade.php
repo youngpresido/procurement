@@ -16,6 +16,29 @@
                     <input wire:model="quote" class="w-full px-5 py-3 border border-gray-400 rounded-lg outline-none focus:shadow-outline" type="file"  name="quote" value="{{ old('quote') }}" />
 
                 </div>
+                @else
+                @if(!is_null($data['quote']))
+                <legend>Accept Quotations</legend>
+                <div class="py-3">
+                    @error('quote')
+                        <p class="text-red-500 mt-1">{{ $message }}</p>
+                    @enderror
+                    <label>File Quotation</label>
+                   <a href="{{asset('saved/photos/'.$data['logo']) }}">
+                       <iframe src="{{asset('saved/photos/'.$data['logo']) }}"  width="200px" height="200px"></iframe>
+                   </a>
+                   <label>Update quote status</label>
+                   <select wire:model="quote_status" class="w-full px-5 py-3 border border-gray-400 rounded-lg outline-none focus:shadow-outline"  name="quote_status" value="{{ old('quote_status') }}" />
+                   <option></option>
+                   @foreach($myStatus as $key =>$value)
+
+                       <option value="{{$key}}">{{$value}}</option>
+
+                       @endforeach
+               </select>
+
+                </div>
+                @endif
                 @endif
                 <div class="pt-3">
                     <button class="flex px-6 py-3 text-white bg-indigo-500 rounded-md hover:bg-indigo-600 hover:text-white focus:outline-none focus:shadow-outline focus:border-indigo-300" type="submit">
