@@ -13,7 +13,7 @@ class ItemsUpdate extends Component
 {
     public $data=[];
     public $status;
-
+    public $vendor_id;
     public $ids;
     public $reason=null;
     public $showUpdate="false";
@@ -74,6 +74,9 @@ class ItemsUpdate extends Component
             $this->data['status_level']=$proc->id;
             $this->data['status']="accepted";
             Mail::to($proc->email)->send(new UpdateRequest($proc));
+        }
+        if(auth()->user()->type== 'procurement'){
+            $this->data['vendor_id']= $this->vendor_id;
         }
     }else{
         Mail::to($user->email)->send(new UpdateRequest($proc));
