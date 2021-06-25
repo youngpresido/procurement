@@ -22,8 +22,10 @@
                 <tr>
                     @foreach($headers as $key => $value)
                     <td class="px-2 py-3 whitespace-nowrap text-sm text-gray-500">
-                        @if($key=='action' && (auth()->user()->type!="staff" || auth()->user()->type!="vendor" ))
+                        @if($key=='action')
+                        @if((auth()->user()->type!="staff" && auth()->user()->type!="vendor" ))
                         <a href="{{ url('/admin/item/'.$item['id']) }}">view</a>
+                        @endif
                         @else
                             {!! is_array($value)? $value['func']($item[$key]): $item[$key] !!}
                         @endif

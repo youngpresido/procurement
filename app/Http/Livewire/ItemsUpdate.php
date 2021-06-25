@@ -66,6 +66,7 @@ class ItemsUpdate extends Component
             Mail::to($hod->email)->send(new UpdateRequest($hod));
         }else if($hod->id == auth()->user()->id){
             $this->data['status_level']=$proc->id;
+            $this->data['status']="accepted";
             Mail::to($proc->email)->send(new UpdateRequest($proc));
         }
     }else{

@@ -59,9 +59,13 @@ class SuppliesWire extends Component
     protected function resultData()
     {
         if(auth()->user()->position != "procurement"){
-         return   Item::orderBy($this->sortColumn,$this->sortDirection)->where('vendor_id',auth()->user()->id)->paginate(10);
+         return   Item::orderBy($this->sortColumn,$this->sortDirection)
+         ->where('vendor_id',auth()->user()->id)
+         ->paginate(10);
         }
-        return   Item::orderBy($this->sortColumn,$this->sortDirection)->where('status',"accepted")->paginate(10);
+        return   Item::orderBy($this->sortColumn,$this->sortDirection)
+                    ->where('status',"accepted")
+                    ->paginate(10);
 
     }
 
