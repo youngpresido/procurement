@@ -81,6 +81,12 @@ public function uploadFile($file){
         $this->clearForm();
 
         $this->currentStep = 1;
+        $this->dispatchBrowserEvent('swal:modal',[
+            'type' => 'success',
+            'title'=> 'Item added Successfully',
+            'text' => ''
+        ]);
+        return redirect()->back();
     }
 
 
